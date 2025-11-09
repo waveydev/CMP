@@ -4,7 +4,8 @@ This is the mobile-only client for managing community members in Morocco with ro
 
 ## Tech
 - Expo SDK 54, React Native, TypeScript
-- React Navigation (native-stack)
+- React Navigation (native-stack + bottom-tabs)
+- React Native Paper (Material 3) with emerald theme
 - React Query for server state
 - Axios for API requests
 - Expo Secure Store for token storage
@@ -33,7 +34,7 @@ npm run start
 
 ## Navigation
 - Auth stack: `Login`, `RedeemInvite`
-- App stack: `Members`, `MemberForm`, `Settings`
+- App root: bottom tabs `Members`, `Settings` with icons; `MemberForm` is a stacked screen
 
 ## Notes
 ### API Stub

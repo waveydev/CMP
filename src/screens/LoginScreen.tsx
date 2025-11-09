@@ -34,7 +34,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         <Text style={styles.title}>Representative Login</Text>
         {error && <Text style={styles.error}>{error}</Text>}
         <Input label="Email" placeholder="you@example.com" keyboardType="email-address" value={email} onChangeText={setEmail} />
-        <Input label="Password" placeholder="••••••••" secureTextEntry value={password} onChangeText={setPassword} />
+        <Input label="Password" placeholder="••••••••" secureTextEntry secureToggle value={password} onChangeText={setPassword} />
         <Button title={loading ? 'Signing in…' : 'Sign In'} onPress={onSubmit} loading={loading} />
         <View style={{ height: 12 }} />
         <Button title="Redeem Invitation" variant="secondary" onPress={() => navigation.navigate('RedeemInvite')} />

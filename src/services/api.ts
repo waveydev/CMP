@@ -21,11 +21,57 @@ export interface MemberRecord {
   jamaat: string;
   date_of_birth: string;
   gender: 'Male' | 'Female';
+  family_situation: 'Married' | 'Divorced' | 'Single';
+  children_count: number;
+  children_over_15_count: number;
+  spouse_is_ahmadi: boolean;
+  salary_mad: number;
+  salary_type: 'Fixed' | 'Variable';
+  monthly_tchanda: number;
+  is_mousi: boolean;
+  is_active: boolean;
+  jamaat_role: string;
 }
 
 const demoMembers: MemberRecord[] = [
-  { id: 1, first_name: 'Ali', last_name: 'Hassan', national_number: 'NN123', jamaat: '1', date_of_birth: '1990-01-01', gender: 'Male' },
-  { id: 2, first_name: 'Fatima', last_name: 'Zahra', national_number: 'NN456', jamaat: '1', date_of_birth: '1992-02-02', gender: 'Female' },
+  {
+    id: 1,
+    first_name: 'Ali',
+    last_name: 'Hassan',
+    national_number: 'MOR0123',
+    jamaat: '1',
+    date_of_birth: '1990-01-01',
+    gender: 'Male',
+    family_situation: 'Married',
+    children_count: 2,
+    children_over_15_count: 1,
+    spouse_is_ahmadi: true,
+    salary_mad: 7000,
+    salary_type: 'Fixed',
+    monthly_tchanda: 200,
+    is_mousi: false,
+    is_active: true,
+    jamaat_role: 'Treasurer',
+  },
+  {
+    id: 2,
+    first_name: 'Fatima',
+    last_name: 'Zahra',
+    national_number: 'MOR0456',
+    jamaat: '1',
+    date_of_birth: '1992-02-02',
+    gender: 'Female',
+    family_situation: 'Single',
+    children_count: 0,
+    children_over_15_count: 0,
+    spouse_is_ahmadi: false,
+    salary_mad: 0,
+    salary_type: 'Variable',
+    monthly_tchanda: 50,
+    is_mousi: true,
+    is_active: true,
+    jamaat_role: 'Member',
+  },
 ];
 
 export const api = {
