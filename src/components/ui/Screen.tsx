@@ -1,13 +1,12 @@
 import React from 'react';
-import { View, ViewProps } from 'react-native';
-import { styled } from 'nativewind';
+import { View, ViewProps, StyleSheet } from 'react-native';
 
-const SView = styled(View);
+const styles = StyleSheet.create({
+  root: { flex: 1, backgroundColor: '#ffffff' },
+});
 
-export const Screen: React.FC<ViewProps> = ({ children, style, ...rest }) => {
-  return (
-    <SView className="flex-1 bg-white" style={style} {...rest}>
-      {children}
-    </SView>
-  );
-};
+export const Screen: React.FC<ViewProps> = ({ children, style, ...rest }) => (
+  <View style={[styles.root, style]} {...rest}>
+    {children}
+  </View>
+);

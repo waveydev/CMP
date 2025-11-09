@@ -1,6 +1,5 @@
 import React from 'react';
-import { Pressable, Text, ActivityIndicator, ViewStyle } from 'react-native';
-import { styled } from 'nativewind';
+import { Pressable, Text, ActivityIndicator, ViewStyle, StyleSheet } from 'react-native';
 
 interface ButtonProps {
   title: string;
@@ -11,31 +10,44 @@ interface ButtonProps {
   style?: ViewStyle;
 }
 
-const variants: Record<string, string> = {
-  primary: 'bg-primary-500 active:bg-primary-600',
-  secondary: 'bg-primary-100 active:bg-primary-200',
-  danger: 'bg-red-600 active:bg-red-700',
-};
-
-const textVariants: Record<string, string> = {
-  primary: 'text-white',
-  secondary: 'text-primary-700',
-  danger: 'text-white',
-};
-
-const SPressable = styled(Pressable);
-const SText = styled(Text);
+const styles = StyleSheet.create({
+  baseBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+  },
+  primary: { backgroundColor: '#10B981' },
+  secondary: { backgroundColor: '#ECFDF5' },
+  danger: { backgroundColor: '#DC2626' },
+  textPrimary: { color: '#fff', fontWeight: '600' },
+  textSecondary: { color: '#047857', fontWeight: '700' },
+  textDanger: { color: '#fff', fontWeight: '700' },
+  spinner: { marginRight: 8 },
+});
 
 export const Button: React.FC<ButtonProps> = ({ title, onPress, loading, variant = 'primary', disabled, style }) => {
+  const btnStyle = [
+    styles.baseBtn,
+    variant === 'primary' && styles.primary,
+    variant === 'secondary' && styles.secondary,
+    variant === 'danger' && styles.danger,
+    (disabled || loading) && { opacity: 0.6 },
+    style,
+  ];
+  const textStyle = [
+    variant === 'primary' && styles.textPrimary,
+    variant === 'secondary' && styles.textSecondary,
+    variant === 'danger' && styles.textDanger,
+  ];
+  const spinnerColor = variant === 'secondary' ? '#047857' : '#fff';
+
   return (
-    <SPressable
-      disabled={disabled || loading}
-      onPress={onPress}
-      className={`flex-row items-center justify-center rounded-xl px-4 py-3 ${variants[variant]} ${disabled ? 'opacity-50' : ''}`}
-      style={style}
-    >
-      {loading && <ActivityIndicator size="small" color="#fff" className="mr-2" />}
-      <SText className={`font-semibold ${textVariants[variant]}`}>{title}</SText>
-    </SPressable>
+    <Pressable disabled={disabled || loading} onPress={onPress} style={btnStyle}>
+      {loading && <ActivityIndicator size="small" color={spinnerColor} style={styles.spinner} />}
+      <Text style={textStyle as any}>{title}</Text>
+    </Pressable>
   );
 };
