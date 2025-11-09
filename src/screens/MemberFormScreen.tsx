@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { Input } from '../components/ui/Input';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../navigation/AppNavigator';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -72,7 +73,9 @@ export default function MemberFormScreen({ route, navigation }: MemberFormProps)
       <Field label="Gender (Male/Female)" name="gender" control={control} />
       <Field label="National Number" name="national_number" control={control} />
       <Field label="Jamaat" name="jamaat" control={control} />
-      <Button title={saveMutation.isPending ? 'Saving...' : 'Save'} onPress={handleSubmit(onSubmit)} />
+      <Pressable style={styles.primaryBtn} onPress={handleSubmit(onSubmit)} disabled={saveMutation.isPending}>
+        <Text style={styles.primaryBtnText}>{saveMutation.isPending ? 'Saving...' : 'Save'}</Text>
+      </Pressable>
     </View>
   );
 }
@@ -80,12 +83,12 @@ export default function MemberFormScreen({ route, navigation }: MemberFormProps)
 function Field({ label, name, control }: { label: string; name: keyof MemberFormValues; control: any }) {
   return (
     <View style={{ marginBottom: 10 }}>
-      <Text style={{ marginBottom: 4 }}>{label}</Text>
+      <Text style={{ marginBottom: 4, color: '#6B7280', fontWeight: '600' }}>{label}</Text>
       <Controller
         name={name}
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput style={styles.input} onBlur={onBlur} onChangeText={onChange} value={String(value ?? '')} />
+          <Input value={String(value ?? '')} onChangeText={onChange} />
         )}
       />
     </View>
@@ -94,6 +97,8 @@ function Field({ label, name, control }: { label: string; name: keyof MemberForm
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16 },
-  title: { fontSize: 20, fontWeight: '700', marginBottom: 12 },
-  input: { borderWidth: 1, borderColor: '#ccc', borderRadius: 8, padding: 12 },
+  title: { fontSize: 22, fontWeight: '800', marginBottom: 12, color: '#065F46' },
+  input: { borderWidth: 1, borderColor: '#A7F3D0', borderRadius: 12, padding: 12 },
+  primaryBtn: { backgroundColor: '#10B981', paddingVertical: 12, borderRadius: 12, alignItems: 'center', marginTop: 8 },
+  primaryBtnText: { color: '#fff', fontWeight: '800' },
 });

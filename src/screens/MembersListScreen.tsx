@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../navigation/AppNavigator';
 import { useQuery } from '@tanstack/react-query';
@@ -19,7 +19,9 @@ export default function MembersListScreen({ navigation }: MembersListProps) {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Members</Text>
-        <Button title="Settings" onPress={() => navigation.navigate('Settings')} />
+        <Pressable style={styles.secondaryBtn} onPress={() => navigation.navigate('Settings')}>
+          <Text style={styles.secondaryBtnText}>Settings</Text>
+        </Pressable>
       </View>
 
       {isLoading && <Text>Loading...</Text>}
@@ -31,10 +33,7 @@ export default function MembersListScreen({ navigation }: MembersListProps) {
         onRefresh={refetch}
         refreshing={isLoading}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate('MemberForm', { id: String(item.id) })}
-            style={styles.row}
-          >
+          <TouchableOpacity onPress={() => navigation.navigate('MemberForm', { id: String(item.id) })} style={styles.row}>
             <Text style={styles.rowTitle}>
               {item.first_name} {item.last_name}
             </Text>
@@ -42,10 +41,9 @@ export default function MembersListScreen({ navigation }: MembersListProps) {
           </TouchableOpacity>
         )}
       />
-
-      <Button title="Add Member" onPress={() => navigation.navigate('MemberForm')} />
-      <View style={{ height: 12 }} />
-      <Button title="Log Out" onPress={logout} color="#cc0000" />
+      <Pressable style={styles.fab} onPress={() => navigation.navigate('MemberForm')}>
+        <Text style={styles.fabText}>+ Add</Text>
+      </Pressable>
     </View>
   );
 }
@@ -53,8 +51,12 @@ export default function MembersListScreen({ navigation }: MembersListProps) {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, gap: 12 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  title: { fontSize: 20, fontWeight: '700' },
-  row: { paddingVertical: 12, borderBottomWidth: 1, borderColor: '#eee' },
-  rowTitle: { fontSize: 16, fontWeight: '600' },
-  rowSub: { color: '#666' },
+  title: { fontSize: 22, fontWeight: '800', color: '#065F46' },
+  row: { paddingVertical: 14, borderBottomWidth: 1, borderColor: '#E5E7EB' },
+  rowTitle: { fontSize: 16, fontWeight: '600', color: '#064E3B' },
+  rowSub: { color: '#6B7280' },
+  secondaryBtn: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 999, backgroundColor: '#ECFDF5' },
+  secondaryBtnText: { color: '#047857', fontWeight: '700' },
+  fab: { position: 'absolute', right: 16, bottom: 16, backgroundColor: '#10B981', paddingVertical: 12, paddingHorizontal: 18, borderRadius: 999, elevation: 3 },
+  fabText: { color: '#fff', fontWeight: '800' },
 });
