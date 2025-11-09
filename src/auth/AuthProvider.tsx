@@ -1,13 +1,8 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { api } from '../services/api';
+import { api, UserProfile } from '../services/api';
 
-type User = {
-  id: string;
-  email: string;
-  role: 'NATIONAL' | 'REGIONAL';
-  region?: string | null;
-};
+type User = UserProfile;
 
 type LoginInput = { email: string; password: string };
 

@@ -46,7 +46,10 @@ export default function MemberFormScreen({ route, navigation }: MemberFormProps)
 
   useEffect(() => {
     if (memberQuery.data) {
-      reset(memberQuery.data);
+      const { id: _ignored, ...rest } = memberQuery.data as any;
+      // Ensure gender matches union type
+      const fixed = { ...rest, gender: rest.gender === 'Female' ? 'Female' : 'Male' };
+      reset(fixed);
     }
   }, [memberQuery.data, reset]);
 
